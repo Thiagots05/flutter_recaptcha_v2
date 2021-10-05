@@ -49,26 +49,44 @@ class _MyHomePageState extends State<MyHomePage> {
                     recaptchaV2Controller.show();
                   },
                 ),
+                RaisedButton(
+                  child: Text("SHOW ReCAPTCHA"),
+                  onPressed: () {
+                    recaptchaV2Controller.show();
+                  },
+                ),
+                RaisedButton(
+                  child: Text("SHOW ReCAPTCHA"),
+                  onPressed: () {
+                    recaptchaV2Controller.show();
+                  },
+                ),
+                RaisedButton(
+                  child: Text("SHOW ReCAPTCHA"),
+                  onPressed: () {
+                    recaptchaV2Controller.show();
+                  },
+                ),
                 Text(verifyResult),
+                RecaptchaV2(
+                  apiKey: "6LeCwZYUAAAAAJo8IVvGX9dH65Rw89vxaxErCeou",
+                  apiSecret: "6LeCwZYUAAAAAKGahIjwfOARevvRETgvwhPMKCs_",
+                  controller: recaptchaV2Controller,
+                  onVerifiedError: (err) {
+                    print(err);
+                  },
+                  onVerifiedSuccessfully: (success) {
+                    setState(() {
+                      if (success) {
+                        verifyResult = "You've been verified successfully.";
+                      } else {
+                        verifyResult = "Failed to verify.";
+                      }
+                    });
+                  },
+                ),
               ],
             ),
-          ),
-          RecaptchaV2(
-            apiKey: "6LeCwZYUAAAAAJo8IVvGX9dH65Rw89vxaxErCeou",
-            apiSecret: "6LeCwZYUAAAAAKGahIjwfOARevvRETgvwhPMKCs_",
-            controller: recaptchaV2Controller,
-            onVerifiedError: (err){
-              print(err);
-            },
-            onVerifiedSuccessfully: (success) {
-              setState(() {
-                if (success) {
-                  verifyResult = "You've been verified successfully.";
-                } else {
-                  verifyResult = "Failed to verify.";
-                }
-              });
-            },
           ),
         ],
       ),
