@@ -101,7 +101,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
     return controller.visible
         ? Container(
             height: 600,
-            width: MediaQuery.of(context).size.width * 0.65,
+            width: MediaQuery.of(context).size.width * 0.8,
             child: WebView(
               initialUrl: "${widget.pluginURL}?api_key=${widget.apiKey}",
               javascriptMode: JavascriptMode.unrestricted,
