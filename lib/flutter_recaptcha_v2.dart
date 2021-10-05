@@ -99,50 +99,51 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
   @override
   Widget build(BuildContext context) {
     return controller.visible
-        ? Container(
-            height: 600,
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: WebView(
-              initialUrl: "${widget.pluginURL}?api_key=${widget.apiKey}",
-              javascriptMode: JavascriptMode.unrestricted,
-              javascriptChannels: <JavascriptChannel>[
-                JavascriptChannel(
-                  name: 'RecaptchaFlutterChannel',
-                  onMessageReceived: (JavascriptMessage receiver) {
-                    String _token = receiver.message;
-                    if (_token.contains("verify")) {
-                      _token = _token.substring(7);
-                    }
-                    verifyToken(_token);
-                  },
-                ),
-              ].toSet(),
-              onWebViewCreated: (_controller) {
-                webViewController = _controller;
-              },
+        ? Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: WebView(
+                initialUrl: "${widget.pluginURL}?api_key=${widget.apiKey}",
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: <JavascriptChannel>[
+                  JavascriptChannel(
+                    name: 'RecaptchaFlutterChannel',
+                    onMessageReceived: (JavascriptMessage receiver) {
+                      String _token = receiver.message;
+                      if (_token.contains("verify")) {
+                        _token = _token.substring(7);
+                      }
+                      verifyToken(_token);
+                    },
+                  ),
+                ].toSet(),
+                onWebViewCreated: (_controller) {
+                  webViewController = _controller;
+                },
+              ),
+              // Visibility(
+              //   visible: widget.visibleCancelBottom,
+              //   child: Align(
+              //     alignment: Alignment.bottomCenter,
+              //     child: SizedBox(
+              //       height: 60,
+              //       child: Row(
+              //         mainAxisSize: MainAxisSize.max,
+              //         children: <Widget>[
+              //           Expanded(
+              //             child: RaisedButton(
+              //               child: Text(widget.textCancelButtom),
+              //               onPressed: () {
+              //                 controller.hide();
+              //               },
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ),
-            // Visibility(
-            //   visible: widget.visibleCancelBottom,
-            //   child: Align(
-            //     alignment: Alignment.bottomCenter,
-            //     child: SizedBox(
-            //       height: 60,
-            //       child: Row(
-            //         mainAxisSize: MainAxisSize.max,
-            //         children: <Widget>[
-            //           Expanded(
-            //             child: RaisedButton(
-            //               child: Text(widget.textCancelButtom),
-            //               onPressed: () {
-            //                 controller.hide();
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
           )
         : Container();
   }
